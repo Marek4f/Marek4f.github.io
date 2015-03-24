@@ -76,11 +76,10 @@
         </div>
         
     </header>
-	<div id="map">
-
+ <div id="map" class="map" style="height: 500px">
 	<script>
 // create a map in the "map" div, set the view to a given place and zoom
-var map = L.map('map').setView([54.099, 18.779], 14);
+var map = L.map('map').setView([54.099, 18.779], 15);
 // add an OpenStreetMap tile layer
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -90,20 +89,7 @@ L.marker([54.099, 18.779]).addTo(map)
     .bindPopup('W tym mieście mieszkam')
     .openPopup();
 	</script>
-    <hr>
-   
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div  class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
 
-
-</div>
-
-            </div>
-            
-        </div>
         
     </div>
     <!-- Footer -->
