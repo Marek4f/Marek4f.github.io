@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>prototyp</title>
+<body>
+<h1>Sprawdź wysokość n.p.m. wybranego punktu</h1>
+
+<textarea id='szer' onkeyup="enter(event, this)" placeholder="Wpisz wysokość np '54.099'"></textarea>
+<textarea id='wys' onkeyup="enter(event, this)" placeholder="Wpisz szerokość np '18.779"></textarea>
+<button type="button" onclick="spr()">Sprawdź</button>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script>
+
+function spr() {
+    var elevator = new google.maps.ElevationService();
+    var locations = [];
+
+    locations.push( new google.maps.LatLng(document.getElementById('szer').value, 
+     document.getElementById('wys').value) );
+
+    var positionalRequest = {
+      'locations': locations
+    }
+    
+    elevator.getElevationForLocations(positionalRequest, function(results, status) {
+      if (status == google.maps.ElevationStatus.OK) {
+        if (results[0]) {
+          for (var i=0; i< results.length; i++) {
+			  alert("Wysokość nad poziomem morza wynosi "+results[i].elevation.toFixed(3)+' metrów');
+          }
+        }
+      }
+    });
+  }
+  function enter(e) {
+    var code = (e.keyCode ? e.keyCode : e.which);
+    if (code == 13) { 
+spr();
+
+    }
+}
+</script>
+</body>
+</html>
