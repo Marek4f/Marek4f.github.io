@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>prototyp2</title>
+<body>
+	 <a download="test.gpx" id="downloadlink" style="display: none">Download</a>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+<input type='file'  onchange='openFile(event)'><br>
+<img id='output'>
+<script>
+	function pisz(){
+var textFile = null,
+  makeTextFile = function (text) {
+    var data = new Blob([text], {type: 'text/plain'});
+
+    // If we are replacing a previously generated file we need to
+    // manually revoke the object URL to avoid memory leaks.
+    if (textFile !== null) {
+      window.URL.revokeObjectURL(textFile);
+    }
+
+    textFile = window.URL.createObjectURL(data);
+
+    return textFile;
+  };
+var u,k;
+u='l';
+u=u+'ii';
+  var create = document.getElementById('create'),
+    textbox = document.getElementById('textbox');
+
+    var link = document.getElementById('downloadlink');
+        link.href = makeTextFile(u);
+
+    link.style.display = 'block';
+
+	}
+function ilosc(){
+    var input = event.target;
+
+    var reader = new FileReader();
+    reader.onload = function(){
+      var arrayBuffer = reader.result;
+		variable = ilosc=arrayBuffer.byteLength;
+      //alert(ilosc);
+    };
+    reader.readAsArrayBuffer(input.files[0]);
+    oblicz();
+  }
+  function oblicz(){
+	  var input = event.target;
+    var i, j, n, a, b, szer, wys, c=0;
+    var s=[];
+    var reader = new FileReader();
+    reader.onload = function(){
+
+		for (i=0, j=1, n=0;i<=ilosc;i++,j++){
+		//alert('jj');
+		s[n]=reader.result.substring(i, j);
+		//console.log(s[n]);
+		
+		if (reader.result.substring(i, j)=='l'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='o' || reader.result.substring(i, j)=='a'){
+				i++;
+				j++;
+				if (reader.result.substring(i, j)=='n'||reader.result.substring(i, j)=='t'){
+					a=i;
+					b=j;
+					a=a+3;
+					b=b+11;
+					i++;
+					j++
+					
+					c=c%2;
+					if (c==0){
+						szer=reader.result.substring(a, b);
+					}
+					else {
+					wys=reader.result.substring(a, b);
+					}
+					c++;
+	 var elevator = new google.maps.ElevationService();
+    var locations = [];
+
+    locations.push( new google.maps.LatLng(wys, szer) );
+
+    var positionalRequest = {
+      'locations': locations
+    }
+    
+    elevator.getElevationForLocations(positionalRequest, function(results, status) {
+      if (status == google.maps.ElevationStatus.OK) {
+        if (results[0]) {
+          for (var e=0; e<results.length; e++) {
+			  console.log("Wysokość nad poziomem morza wynosi "+results[e].elevation.toFixed(3)+' metrów');
+          }
+        }
+      }
+    });
+				}
+			}
+		}
+}
+//console.log(reader.result.substring(0, 200));
+    };
+    reader.readAsText(input.files[0]);
+    pisz();
+  }
+  var openFile = function(event) {
+    ilosc();
+  };
+</script>
+</body>
+</html>
