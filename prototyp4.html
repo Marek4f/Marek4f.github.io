@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>prototyp2</title>
+<body>
+	 <a download="test.gpx" id="downloadlink" style="display: none">Download</a>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+<input type='file'  onchange='openFile(event)'><br>
+<img id='output'>
+<script>
+	function wysokosc(){
+		s=new Array();
+var d=0;
+
+    var locations = [];
+
+    locations.push( new google.maps.LatLng(wys, szer) );
+console.log(szer);
+    var positionalRequest = {
+      'locations': locations
+    }
+    var elevator = new google.maps.ElevationService();
+    elevator.getElevationForLocations(positionalRequest, function(results, status) {
+      if (status == google.maps.ElevationStatus.OK) {
+
+        if (results[0]) {
+			for(var e=0;e<results.length;e++){
+			s.push(results[e].elevation.toFixed(2));
+			d=+results[e].elevation.toFixed(2);
+			console.log(d);
+		}
+         
+			  //console.log("Wysokość nad poziomem morza wynosi "+results[e].elevation.toFixed(3)+' metrów');
+			  //console.log('a');
+			
+			  }
+        
+
+     }
+    
+    });
+	g[li]='<trkpt lon=\"'+szer+'\" lat=\"'+wys;
+		g[li]=g[li]+'\">';
+		
+		u=u+g[li];
+li++;
+					  console.log('b');
+u=u+'\n<ele>'+d+'</ele>\n </trkpt>\n';	 
+pisz();
+	}
+	function szerokosc(){
+		console.log(tablica[0]);
+	}
+	function pisz(){
+
+var textFile = null,
+  makeTextFile = function (text) {
+    var data = new Blob([text], {type: 'text/plain'});
+
+    if (textFile !== null) {
+      window.URL.revokeObjectURL(textFile);
+    }
+
+    textFile = window.URL.createObjectURL(data);
+    return textFile;
+  };
+var k=0;
+//for (k=0;k<=ilosc;k++){
+//}
+
+  var create = document.getElementById('create'),
+    textbox = document.getElementById('textbox');
+k++;
+//console.log(g[li]);
+
+
+    var link = document.getElementById('downloadlink');
+       link.href = makeTextFile(u);
+licz++;
+    link.style.display = 'block';
+	}
+	
+function ilosc(){
+    var input = event.target;
+variable=szer=0;
+variable=wys=0;
+variable=koniec=0;
+tablica=new Array();
+tablica2=new Array();
+g=new Array();
+results=new Array();
+variable= u='';
+variable= li=0;
+variable= licz=0;
+//variable= wys=0;
+//variable= szer=0;
+    var reader = new FileReader();
+    reader.onload = function(){
+      var arrayBuffer = reader.result;
+		variable = ilosc=arrayBuffer.byteLength;
+		var h;
+		
+
+    };
+    reader.readAsArrayBuffer(input.files[0]);
+    oblicz();
+  }
+  function oblicz(){
+	  var input = event.target;
+    var i, j, n=0, a, b, c=0, pamiec, p=0, l=0;
+    v=0;
+    u=u+'<?xml version="1.0" encoding="UTF-8"?>\n<gpx>\n<trk>\n<trkseg>';
+    var reader = new FileReader();
+    reader.onload = function(){
+		for (i=0, j=1, n=0;n<=ilosc;i++,j++,n++){
+
+		if (reader.result.substring(i, j)=='l'){
+			
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='o' || reader.result.substring(i, j)=='a'){
+				i++;
+				j++;
+				if (reader.result.substring(i, j)=='n'||reader.result.substring(i, j)=='t'){
+					a=i;
+					b=j;
+					a=a+3;
+					b=b+13;
+					c=c%2;
+					if (c==0){
+						szer=reader.result.substring(a, b);
+						tablica[p]=szer;
+						p++;
+					}
+					else {
+					wys=reader.result.substring(a, b);
+					tablica2[l]=wys;
+					l++;
+					}
+					
+					a=0;
+					b=0;
+		if (c!=0){
+			wysokosc();
+			}
+			c++;
+		
+	 
+		
+		p++;
+				}
+			}
+		}
+}u=u+'\n</trkseg>\n</trk>\n</gpx>';
+	 pisz();
+		console.log(i);
+    };
+    						
+
+    //
+    reader.readAsText(input.files[0]);
+    koniec=1
+    
+
+
+
+  }
+  var openFile = function(event) {
+    ilosc();
+  };
+</script>
+</body>
+</html>
