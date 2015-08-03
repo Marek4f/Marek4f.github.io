@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>prototyp2</title>
+<body>
+	 <a download="test.gpx" id="downloadlink" style="display: none">Download</a>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+<input type='file'  onchange='openFile(event)'><br>
+<img id='output'>
+<p id="info"></p>
+<script>
+	function koniec(){
+		return false;
+	}
+	function wysokosc(){
+	var locations = [];
+
+for (var f = 1; f <= 1; f++) {
+    setTimeout(function(x) { return function() {
+		
+		
+	if (spr==1){
+    locations.push( new google.maps.LatLng(tablica2[licznik], tablica[licznik]) );
+    
+}
+else if (spr==2){
+	locations.push( new google.maps.LatLng(tablica[li], tablica2[li]) );
+}
+    var positionalRequest = {
+      'locations': locations
+    }	
+    		licznik++;	
+    var elevator = new google.maps.ElevationService();
+    elevator.getElevationForLocations(positionalRequest, function(results, status) {
+		if (status == google.maps.ElevationStatus.OK) {
+for(var e=0;e<results.length;e++){
+				s.push(results[e].elevation.toFixed(2));
+			if (s[li]==-4941.75) {
+			 li++;
+			
+			 pisz();
+	}
+	else {
+		if (spr==1){
+			g[li]='<trkpt lon=\"'+tablica[li]+'\" lat=\"'+tablica2[li]+'\">'+'\n<ele>'+s[li]+'</ele>\n ';
+		m=tablica.length;
+		u=u+g[li];
+		u=u+data[li];
+	}
+	else if (spr==2){
+		g[li]='<trkpt lon=\"'+tablica2[li]+'\" lat=\"'+tablica[li]+'\">'+'\n<ele>'+s[li]+'</ele>\n';
+		m=tablica.length;
+		u=u+g[li];
+		u=u+data[li];
+	} 
+	li++;
+	 pisz();	
+//u=u+'\n<ele>'+s[li]+'</ele>\n </trkpt>\n';	
+
+         
+			  //console.log("Wysokość nad poziomem morza wynosi "+results[e].elevation.toFixed(3)+' metrów');
+			  //console.log('a');
+			
+		  }
+   }     
+}
+else if (status == google.maps.ElevationStatus.OVER_QUERY_LIMIT) {
+	licznik--;
+	//while(li==tablica.lenght){
+	//u=u+'<trkpt lon=\"'+tablica[liczba]+'\" lat=\"'+tablica2[liczba]+'\">'+'\n<ele></ele>\n';
+	//u=u+data[liczba];
+	//liczba++;
+//}
+
+}
+    
+    });
+     
+   }; }(f), 1000);
+}
+	
+	}
+	function pisz(){
+var textFile = null,
+  makeTextFile = function (text) {
+    var data = new Blob([text], {type: 'text/plain'});
+    if (textFile !== null) {
+      window.URL.revokeObjectURL(textFile);
+    }
+    textFile = window.URL.createObjectURL(data);
+    return textFile;
+  };
+var k=0;
+//for (k=0;k<=ilosc;k++){
+//}
+  var create = document.getElementById('create'),
+    textbox = document.getElementById('textbox');
+k++;
+//console.log(g[li]);
+    var link = document.getElementById('downloadlink');
+       if (li>=m){
+		   if (o==0){
+			   o++;
+			   document.getElementById("info").innerHTML = "Gotowe!";
+		   u=u+'\n</trkseg>\n</trk>\n</gpx>';
+		   link.href = makeTextFile(u);
+		licz++;
+    link.style.display = 'block';
+   }
+return false;
+	   }
+	   else {
+		   wysokosc();
+	   }
+}
+	
+function ilosc(){
+
+	      var files    = document.querySelector('input[type=file]').files[0];
+
+variable=szer=0;
+variable=wys=0;
+variable=d=500;
+variable=liczba=0;
+variable=spr=0;
+variable=licznik=0;
+tablica=new Array();
+tablica2=new Array();
+		s=new Array();
+g=new Array();
+data=new Array();
+results=new Array();
+variable= u='';
+variable= o=0;
+variable= m=100;
+variable= li=0;
+variable= licz=0;
+//variable= wys=0;
+//variable= szer=0;
+    var reader = new FileReader();
+    reader.onload = function(){
+      var arrayBuffer = reader.result;
+		variable = ilosc=arrayBuffer.byteLength;
+		var h;
+		
+    };
+    reader.readAsArrayBuffer(files);
+    oblicz();
+  }
+  function oblicz(){
+	      var files    = document.querySelector('input[type=file]').files[0];
+    var i, j, n=0, a=0, b, c=0, pamieci, stop=0, p=0, l=0, lidata=0, pp=0;
+    v=0;
+    document.getElementById("info").innerHTML = "Obliczam..";
+    u=u+'<?xml version="1.0" encoding="UTF-8"?>\n<gpx>\n<trk>\n<trkseg>';
+    var reader = new FileReader();
+    reader.onload = function(){
+		for (i=0, j=1, n=0;i<=ilosc;i++,j++,n++){
+			if (stop==0){
+			if (reader.result.substring(i, j)=='n'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='a'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='m'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='e'){
+			i++;
+			j++;
+			pamieci=i-4;
+			pamiecj=j-4;
+			while (reader.result.substring(i, j)!='<'){
+						i++;
+						j++;
+						
+						//console.log(reader.result.substring(i, j));						
+					}
+					stop++;
+					u=u+'\n'+reader.result.substring(pamieci-1, j+6)+'\n';
+		}
+	}
+}
+}
+}
+if (reader.result.substring(i, j)=='t'){
+			i++;
+			j++;
+		if (reader.result.substring(i, j)=='i'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='m'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='e'){
+			i++;
+			j++;
+			pamieci=i-4;
+			while (reader.result.substring(i, j)!='<'){
+						i++;
+						j++;
+						
+						//console.log(reader.result.substring(i, j));						
+					}if (lidata==0){
+					data.push(''+reader.result.substring(pamieci-1, j+6)+'</trkpt>\n');
+					lidata++;
+				}
+				else lidata--;
+		}
+	}
+}
+}
+		if (reader.result.substring(i, j)=='l'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='o' || reader.result.substring(i, j)=='a'){
+				i++;
+				j++;
+				if (reader.result.substring(i, j)=='n'||reader.result.substring(i, j)=='t'){
+					if (a==0&&reader.result.substring(i, j)=='n') spr=1;
+					if (a==0&&reader.result.substring(i, j)=='t') spr=2;
+					a=i;
+					b=j;
+					a=a+3;
+					b=b+3;
+					//console.log(reader.result.substring(a, b));
+					while (reader.result.substring(a, b)!='\"'){
+						a++;
+						b++;
+						//console.log(reader.result.substring(a, b));
+						
+					}
+					
+					a=i;
+					a=a+3;
+					b=b-1;
+					
+					if (c==0){
+						szer=reader.result.substring(a, b);
+						tablica[p]=szer;
+						p++;
+						c++;
+					}
+					else if (c==1){
+					wys=reader.result.substring(a, b);
+					tablica2[l]=wys;
+					l++;
+					c--;
+					}
+		
+			if (c==0){
+				for (var y = 1; y <= 1; y++) {
+    (function(index) {
+        setTimeout(function() { ; }, y * 5000);
+        
+    })(y);
+    
+
+}
+
+		wysokosc();	
+			}
+}
+		
+	 
+		
+				}
+			}
+		}
+		
+    };
+    						
+    reader.readAsText(files);
+    koniec=1;
+    
+  }
+  var openFile = function(event) {
+    ilosc();
+  };
+</script>
+</body>
+</html>
