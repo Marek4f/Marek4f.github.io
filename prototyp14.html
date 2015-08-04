@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Konwerter</title>
+<body>
+	 <a download="o" id="downloadlink" type="text/gpx" style="display: none">Download</a>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+<textarea id='nazwa' placeholder="Wpisz tytuł nowego pliku"></textarea><br>
+<input type='file' accept='.gpx' onchange='openFile(event)'><br>
+<img id='output'>
+<p id="info"></p>
+<script>
+  var openFile = function(event) {
+	  //program start after choose a file gpx
+    zmienne();
+  };
+function zmienne(){
+	//in zmienne function are the most important variables
+	var files = document.querySelector('input[type=file]').files[0];
+	variable=szer=0;
+	variable=wys=0;
+	variable=liczba=0;
+	variable=spr=0;
+	variable=licznik=0;
+	tablica=new Array();
+	tablica2=new Array();
+	s=new Array();
+	g=new Array();
+	hr=new Array();
+	hr[0]='';
+	data=new Array();
+	variable= u='';
+	variable= o=0;
+	variable= li=0;
+	variable= licz=0;
+    var reader = new FileReader();
+    reader.onload = function(){
+    var arrayBuffer = reader.result;
+      //check size of file
+	variable = ilosc=arrayBuffer.byteLength;
+		
+    };
+    reader.readAsArrayBuffer(files);
+    pobierz();
+  }
+
+function pobierz(){
+	var files = document.querySelector('input[type=file]').files[0];
+    var i, j, n=0, a=0, b, c=0, pamieci, stop=0, p=0, l=0, lidata=0, pamhr=0, lihr=0, start=0;
+    document.getElementById("info").innerHTML = "Obliczam..";
+    u=u+'<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<gpx creator=\"Created by itmore (www.itmore.pl)\">\n<trk>\n<trkseg>';
+    var reader = new FileReader();
+    reader.onload = function(){
+		//program check all signs
+	for (i=0, j=1, n=0;i<=ilosc;i++,j++,n++){
+		if (stop==0){
+			//program get new data only if start=1, except name of track. Thanks to this condition program no make mistakes checking information about source of file.
+			//get name of track
+			if (reader.result.substring(i, j)=='n'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='a'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='m'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='e'){
+			i++;
+			j++;
+			pamieci=i-4;
+			pamiecj=j-4;
+			while (reader.result.substring(i, j)!='<'){
+						i++;
+						j++;
+					}
+					stop++;
+					u=u+'\n'+reader.result.substring(pamieci-1, j+6)+'\n';
+		}
+	}
+}
+}
+}
+			if (start==1){
+
+//get times
+		if (reader.result.substring(i, j)=='t'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='i'){
+				i++;
+				j++;
+				if (reader.result.substring(i, j)=='m'){
+				i++;
+				j++;
+					if (reader.result.substring(i, j)=='e'){
+					i++;
+					j++;
+					pamieci=i-4;
+					while (reader.result.substring(i, j)!='<'){
+								i++;
+								j++;
+							}
+					if (lidata==0){
+					data.push(''+reader.result.substring(pamieci-1, j+6)+'\n');
+					lidata++;
+				}
+				else lidata--;
+		}
+	}
+}
+}
+//get heart rate
+		if (reader.result.substring(i, j)=='h'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='r'){
+				i++;
+				j++;
+				pamhr=i;
+				while (reader.result.substring(i, j)!='<'){
+						i++;
+						j++;
+						
+					} 
+					if (lihr==0){
+					hr.push('<hr>'+reader.result.substring(pamhr+1, j-1)+'</hr>\n');
+					lihr++;
+			}
+			 else lihr--;
+		}
+		}
+		
+		
+		//get coordinate
+		if (reader.result.substring(i, j)=='l'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='o' || reader.result.substring(i, j)=='a'){
+				i++;
+				j++;
+				if (reader.result.substring(i, j)=='n'||reader.result.substring(i, j)=='t'){
+					if (a==0&&reader.result.substring(i, j)=='n') spr=1;
+					if (a==0&&reader.result.substring(i, j)=='t') spr=2;
+					a=i;
+					b=j;
+					a=a+3;
+					b=b+3;
+					while (reader.result.substring(a, b)!='\"'){
+						a++;
+						b++;
+						
+					}
+					
+					a=i;
+					a=a+3;
+					b=b-1;
+					
+					if (c==0){
+						szer=reader.result.substring(a, b);
+						tablica[p]=szer;
+						p++;
+						c++;
+					}
+					else if (c==1){
+					wys=reader.result.substring(a, b);
+					tablica2[l]=wys;
+					l++;
+					c--;
+					}
+		
+			if (c==0){
+				//if program get longitude and latitude, can check elevation
+		wysokosc();	
+			}
+}
+		
+	 
+		
+				}
+			}
+		}
+		else{
+			if (reader.result.substring(i, j)=='t'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='r'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='k'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='s'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='e'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='g'){
+			i++;
+			j++;
+			if (reader.result.substring(i, j)=='>'){
+			i++;
+			j++;
+			start=1;
+		}
+	}
+}
+}
+}
+}
+}
+		}
+	}
+    };
+    						
+    reader.readAsText(files);
+    koniec=1;
+    
+  }
+function wysokosc(){
+	var locations = [];
+	for (var f = 1; f <= 1; f++) {
+    setTimeout(function(x) { return function() {
+	//depending on the order coordinates are two options
+	if (spr==1){
+    locations.push( new google.maps.LatLng(tablica2[licznik], tablica[licznik]) );
+    
+}
+	else if (spr==2){
+		locations.push( new google.maps.LatLng(tablica[licznik], tablica2[licznik]) );
+	}
+    var positionalRequest = {
+      'locations': locations
+    }	
+    licznik++;	
+    		
+    var elevator = new google.maps.ElevationService();
+    elevator.getElevationForLocations(positionalRequest, function(results, status) {
+	if (status == google.maps.ElevationStatus.OK) {
+		for(var e=0;e<results.length;e++){
+	//download elevation by Google
+			s.push(results[e].elevation.toFixed(2));
+			if (s[li]==-4941.75) {
+			 li++;
+			
+			 pisz();
+	}
+	else {
+			//writa data to variable
+			if (spr==1){
+			g[li]='<trkpt lon=\"'+tablica[li]+'\" lat=\"'+tablica2[li]+'\">'+'\n<ele>'+s[li]+'</ele>\n';
+			m=tablica.length;
+			u=u+g[li];
+			if (data[li]==null) data[li]='';
+			if (hr[li]==null) hr[li]='';
+			u=u+data[li];
+			u=u+hr[li];
+			u=u+'</trkpt>';
+	}
+		else if (spr==2){
+			g[li]='<trkpt lon=\"'+tablica2[li]+'\" lat=\"'+tablica[li]+'\">'+'\n<ele>'+s[li]+'</ele>\n';
+			m=tablica.length;
+			u=u+g[li];
+			if (data[li]==null) data[li]='';
+			if (hr[li]==null) hr[li]='';
+			u=u+data[li];
+			u=u+hr[li];
+			u=u+'</trkpt>';
+	} 
+		li++;
+		pisz();	
+			
+	}	  
+   }     
+}//if is over query limit per second, program wait
+	else if (status == google.maps.ElevationStatus.OVER_QUERY_LIMIT) {
+		licznik--;
+	
+	}
+
+    });
+      }; }(f), 1000);
+}
+ 
+	
+	}
+function pisz(){
+		//if program checked all locations let download file, else check next
+	var textFile = null,
+	makeTextFile = function (text) {
+    var data = new Blob([text], {type: 'text/plain'});
+    if (textFile !== null) {
+		window.URL.revokeObjectURL(textFile);
+    }
+    textFile = window.URL.createObjectURL(data);
+    return textFile;
+  };
+
+	var create = document.getElementById('create'),
+    textbox = document.getElementById('textbox');
+    var link = document.getElementById('downloadlink');
+    if (document.getElementById('nazwa').value!=''){
+    link.download=document.getElementById('nazwa').value+'.gpx';
+}
+	else link.download='bez nazwy.gpx';
+		if (li>=tablica.length){
+			if (o==0){
+			   o++;
+			   document.getElementById("info").innerHTML = "Gotowe!";
+		   u=u+'\n</trkseg>\n</trk>\n</gpx>';
+		   link.href = makeTextFile(u);
+			link.style.display = 'block';
+   }
+	   }
+	   else {
+		   wysokosc();
+	   }
+}
+	
+
+
+</script>
+</body>
+</html>
